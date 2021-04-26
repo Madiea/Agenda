@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des contacts{% endblock %}
+
+{% block body %}
+<div class="table-responsive">
+    <table class="table table-dark table-striped ">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Ville</th>
+                <th scope="col">Age</th>
+                <th scope="col">Action<td>
+         </thead>
+         <tbody>
+         {% for contact in contacts %}
+            <tr>         
+                <td>{{contact.id}}</td>
+                <td>{{contact.name}}</td>
+                <td>{{contact.firstname}}</td>
+                <td>{{contact.phone}}</td> 
+                <td>{{contact.address}}</td> 
+                <td>{{contact.city}}</td> 
+                <td>{{contact.age}}</td>
+                <td>
+                    <a href="{{path('contact' , {id : contact.id})}}" type="button" class="btn btn-info">Afficher</a>
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{path('edit' , {id : contact.id})}}" type="button" class="btn btn-warning">Modifier</a>
+                    <a href="{{path('delete' , {id : contact.id})}}" type="button" class="btn btn-danger">Supprimer</a>
+                    {% endif %}
+                </td>                        
+            </tr> 
+         {% endfor %}
+       
+    </table>
+</div>
+{% endblock %}
